@@ -37,3 +37,24 @@ Your task is to write a RLE encoder and decoder using this technique. The texts 
         return result
       }
      
+     
+     
+  Tests used:
+    
+  describe('encode', function(){
+  it('uses RLE compression to encode',function(){
+    expect(encode("")).toEqual("")
+    expect(encode("AAA")).toEqual("3A")
+    expect(encode("AB")).toEqual("1A1B")
+    expect(encode("AAABBBCCCA")).toEqual("3A3B3C1A")
+    })
+  })
+  
+  describe('decode', function(){
+    it('uses RLE compression to decode',function(){
+      expect(decode("")).toEqual("")
+      expect(decode("1A")).toEqual("A")
+      expect(decode("1A1B")).toEqual("AB")
+      expect(decode("3A3B3C1A")).toEqual("AAABBBCCCA")
+      })
+    }) 
