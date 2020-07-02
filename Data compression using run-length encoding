@@ -58,3 +58,57 @@ Your task is to write a RLE encoder and decoder using this technique. The texts 
       expect(decode("3A3B3C1A")).toEqual("AAABBBCCCA")
       })
     }) 
+
+
+
+
+
+Second attempt improved decode function:
+
+function encode(input) {
+  var counter = 1
+  var result = ""
+  for(var i=0;i<input.length;i++){
+    if(input[i]==input[i+1]){
+      counter++
+    } else {
+      result += counter+input[i]
+      counter=1
+    }
+  }
+  return result
+}
+
+function decode(input) {
+  var result = ""
+  var input = input.match(/[^\d]+|\d+/g)
+  for(var i=0;i<input.length;i++){
+    if(Number.isInteger(parseInt(input[i]))){
+      result += input[i+1].repeat([input[i]])
+    }
+  }
+  return result
+}
+
+
+Tests used:
+
+describe('encode', function(){
+  it('encodes strings',function(){
+    expect(encode("A")).toEqual("1A")
+    expect(encode("AAA")).toEqual("3A")
+    expect(encode("AB")).toEqual("1A1B")
+    expect(encode("AAABBBCCCA")).toEqual("3A3B3C1A")
+    })
+  })
+
+
+  describe('decode', function(){
+    it('decodes strings',function(){
+      expect(decode("1A")).toEqual("A")
+      expect(decode("3A")).toEqual("AAA")
+      expect(decode("1A1B")).toEqual("AB")
+      expect(decode("3A3B3C1A")).toEqual("AAABBBCCCA")
+      expect(decode("10A1B")).toEqual("AAAAAAAAAAB")
+      })
+    })
