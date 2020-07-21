@@ -1,0 +1,61 @@
+In this Kata, you will be given a number and your task will be to return the nearest prime number.
+
+solve(4) = 3. The nearest primes are 3 and 5. If difference is equal, pick the lower one. 
+solve(125) = 127
+We'll be testing for numbers up to 10^10. 500 tests.
+
+More examples in test cases.
+
+Good luck!
+
+
+
+
+
+function solve(n){
+  var arr = []
+
+function prime(n){
+  for(var i=2;i<=parseInt(Math.sqrt(n));i++){
+    if(n % i == 0) return false
+  }
+  return true
+}
+
+var h = n
+var l = n
+
+  while(!prime(l))
+  l--
+    if(prime(l)){
+    arr.push(l)
+  }
+
+  while(!prime(h))
+  h++
+    if(prime(h)){
+    arr.push(h)
+  }
+
+if(prime(n)) return n
+  if((n - arr[0]) <= (arr[1] - n)) {
+  return arr[0]
+  }
+  return arr[1]
+}
+
+
+
+Tests used:
+
+describe('solve', function(){
+  it('returns the nearest prime number',function(){
+    expect(solve(3)).toEqual(3)
+    expect(solve(4)).toEqual(3)
+    expect(solve(11)).toEqual(11)
+    expect(solve(110)).toEqual(109)
+    expect(solve(3000)).toEqual(2999)
+    expect(solve(1110)).toEqual(1109)
+    expect(solve(350000)).toEqual(350003)
+    })
+  })
