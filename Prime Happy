@@ -1,0 +1,35 @@
+A number n is called prime happy if there is at least one prime less than n and the sum of all primes less than n is evenly divisible by n. Write isPrimeHappy(n) which returns true if n is prime happy else false.
+
+
+
+
+
+function isPrimeHappy(n){
+  var primes = []
+
+  function prime(n){
+    for(var i=2;i<=parseInt(Math.sqrt(n));i++){
+      if(n % i == 0) return false
+    }
+    return true
+  }
+
+  for(var i=2;i<n;i++){
+    if(prime(i)) primes.push(i)
+  }
+    if(primes.length !== 0 && primes.reduce(function(a,b) {return a + b}) % n == 0){
+      return true
+    }
+  return false  
+}
+
+
+
+Tests used:
+
+describe('isPrimeHappy', function(){
+  it('returns true if prime is happy',function(){
+    expect(isPrimeHappy(5)).toEqual(true)
+    expect(isPrimeHappy(8)).toEqual(false)
+    })
+  })
