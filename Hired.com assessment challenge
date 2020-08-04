@@ -1,0 +1,42 @@
+I have placed this challenge here as I think it would be ranked 6 kyu if it was a CodeWars kata.
+
+Given a string of angle brackets, write a function that add brackets at the beginning and end of the string to make all brackets match. The angle brackets match if for every < there is a corresponding > and for every > there is a corresponding <.
+
+The example input string : ><<><
+
+The output string is <><<><>>
+
+
+
+function process(str){
+  var open = 0
+  var addedOpen = 0
+    for(var i=0;i<str.length;i++){
+      if(str[i] == ">"){
+        if(open == 0){
+          addedOpen++
+        } else {
+          open--
+        }
+      } else {
+        open++
+      }
+    }
+  return "<".repeat(addedOpen) + str + ">".repeat(open)  
+}
+
+
+
+Tests used:
+
+describe('process', function(){
+  it('balances the number of angle brackets',function(){
+    expect(process("<")).toEqual("<>")
+    expect(process("<><")).toEqual("<><>")
+    expect(process("<><<")).toEqual("<><<>>")
+    expect(process("<><<<>")).toEqual("<><<<>>>")
+    expect(process("><<>")).toEqual("<><<>>")
+    expect(process("><<><")).toEqual("<><<><>>")
+    expect(process("><")).toEqual("<><>")
+    })
+  })
